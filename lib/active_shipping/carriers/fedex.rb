@@ -10,7 +10,7 @@ module ActiveShipping
     cattr_reader :name
     @@name = "FedEx"
 
-    TEST_URL = 'https://gatewaybeta.fedex.com:443/xml'
+    TEST_URL = 'https://wsbeta.fedex.com:443/web-services'
     LIVE_URL = 'https://gateway.fedex.com:443/xml'
 
     CARRIER_CODES = {
@@ -415,9 +415,9 @@ module ActiveShipping
 
     def build_tracking_request(tracking_number, options = {})
       xml_builder = Nokogiri::XML::Builder.new do |xml|
-        xml.TrackRequest(xmlns: 'http://fedex.com/ws/track/v7') do
+        xml.TrackRequest(xmlns: 'http://fedex.com/ws/track/v16') do
           build_request_header(xml)
-          build_version_node(xml, 'trck', 7, 0, 0)
+          build_version_node(xml, 'trck', 16, 0, 0)
 
           xml.SelectionDetails do
             xml.PackageIdentifier do
